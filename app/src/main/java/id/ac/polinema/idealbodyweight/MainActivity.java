@@ -9,16 +9,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import id.ac.polinema.idealbodyweight.fragments.AboutFragment;
+import id.ac.polinema.idealbodyweight.fragments.BMI;
 import id.ac.polinema.idealbodyweight.fragments.BrocaIndexFragment;
 import id.ac.polinema.idealbodyweight.fragments.MenuFragment;
 import id.ac.polinema.idealbodyweight.fragments.ResultFragment;
+import id.ac.polinema.idealbodyweight.util.BodyMassIndex;
 
 public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener,
 		BrocaIndexFragment.OnFragmentInteractionListener,
-		ResultFragment.OnFragmentInteractionListener {
+		ResultFragment.OnFragmentInteractionListener,
+		BMI.OnFragmentInteractionListener{
 
 	// Deklarasikan atribut Fragment di sini
 	BrocaIndexFragment brocaIndexFragment;
+	BMI bmi;
 	MenuFragment menuFragment;
 	private AboutFragment aboutFragment;
 	private ResultFragment resultFragment;
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 		aboutFragment = AboutFragment.newInstance("Rahadian Bagaskara");
 		menuFragment = new MenuFragment();
 		brocaIndexFragment = new BrocaIndexFragment();
+		bmi = new BMI();
 		resultFragment = new ResultFragment();
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, menuFragment)
 		.commit();
@@ -62,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
 	@Override
 	public void onBodyMassButtonClicked() {
-
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, bmi).commit();
 	}
 
 	@Override
@@ -78,6 +84,14 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 	public void onTryAgainButtonClicked(String tag) {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_container, brocaIndexFragment)
+				.commit();
+	}
+
+	@Override
+	public void onBMIClicked(float index) {
+		resultFragment.setInformation(String.format("Your ideal weight is ", index));
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, resultFragment)
 				.commit();
 	}
 }
