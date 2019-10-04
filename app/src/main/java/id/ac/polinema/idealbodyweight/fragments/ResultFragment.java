@@ -46,7 +46,8 @@ public class ResultFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
-                    mListener.onTryAgainButtonClicked("BrocaIndex");
+                   Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+                   mListener.onTryAgainButtonClicked(fragment.getTag());
                 }
             }
         });

@@ -2,21 +2,17 @@ package id.ac.polinema.idealbodyweight.util;
 
 public class BodyMassIndex {
 
-    private int height, mass;
-    private float index;
+    private float height, mass, value;
 
-    private float Calculate() {
-        return mass / height * height;
+    public float Calculate() {
+        return this.value = this.mass / (this.height * this.height);
     }
 
-    public BodyMassIndex(int height, int mass) {
+    public BodyMassIndex(float height, float mass) {
         this.height = height;
         this.mass = mass;
-        this.index = Calculate();
+        this.Calculate();
     }
 
-    public float getIndex() {
-        return index;
-    }
 
 }
